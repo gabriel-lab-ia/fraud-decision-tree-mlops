@@ -8,11 +8,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
 from fraud_detection.config import load_yaml_config
-from fraud_detection.data.load_data import generate_synthetic_fraud_data, load_dataset
+from fraud_detection.data.pipeline import build_training_dataset
 from fraud_detection.data.preprocessing import split_features_target
+from fraud_detection.data.repository import TransactionDataRepository
 from fraud_detection.data.schemas import MODEL_FEATURE_COLUMNS, TARGET_COLUMN
-from fraud_detection.data.validation import validate_training_data
-from fraud_detection.features.feature_engineering import add_engineered_features
 from fraud_detection.logging import get_logger
 from fraud_detection.models.evaluate import evaluate_classifier
 
@@ -22,38 +21,32 @@ logger = get_logger(__name__)
 def train_decision_tree(config_path: str = "configs/train_config.yaml") -> dict:
     config = load_yaml_config(config_path)
 
-    sample_path = Path(config["data"]["sample_path"])
-    processed_path = Path(config["data"]["processed_path"])
+    data_config = config["data"]
+    model_config = config["model"]
+
     model_path = Path(config["artifacts"]["model_path"])
     metrics_path = Path(config["artifacts"]["metrics_path"])
 
-    if not sample_path.exists():
-        logger.info("Synthetic dataset not found. Generating dataset.")
-        generate_synthetic_fraud_data(
-            output_path=sample_path,
-            n_samples=config["data"]["n_samples"],
-            random_state=config["data"]["random_state"],
-        )
+    repository = TransactionDataRepository(
+        raw_path=data_config["sample_path"],
+        processed_path=data_config["processed_path"],
+    )
 
-    data = load_dataset(sample_path)
-    validate_training_data(data)
-
-    data = add_engineered_features(data)
-
-    processed_path.parent.mkdir(parents=True, exist_ok=True)
-    data.to_csv(processed_path, index=False)
+    data = build_training_dataset(
+        repository=repository,
+        n_samples=data_config["n_samples"],
+        random_state=data_config["random_state"],
+    )
 
     X, y = split_features_target(data, TARGET_COLUMN)
 
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
-        test_size=config["data"]["test_size"],
-        random_state=config["data"]["random_state"],
+        test_size=data_config["test_size"],
+        random_state=data_config["random_state"],
         stratify=y,
     )
-
-    model_config = config["model"]
 
     model = DecisionTreeClassifier(
         max_depth=model_config["max_depth"],
