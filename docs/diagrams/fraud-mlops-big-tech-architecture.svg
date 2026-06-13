@@ -1,7 +1,7 @@
 <svg width="1800" height="1120" viewBox="0 0 1800 1120" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#1f2937" stroke-width="0.8"/>
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#111827" stroke-width="0.45"/>
     </pattern>
 
     <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
@@ -30,28 +30,29 @@
     .legend { font: 600 12px Inter, Segoe UI, Arial, sans-serif; fill: #cbd5e1; }
   </style>
 
-  <rect width="1800" height="1120" fill="#030712"/>
-  <rect width="1800" height="1120" fill="url(#grid)" opacity="0.75"/>
+  <rect width="1800" height="1120" fill="#000000"/>
+  <rect x="18" y="18" width="1764" height="1084" rx="26" fill="none" stroke="#111827" stroke-width="1.2"/>
+  <rect width="1800" height="1120" fill="url(#grid)" opacity="0.08"/>
 
-  <rect x="330" y="28" width="1140" height="82" rx="18" fill="#0b1120" stroke="#94a3b8" stroke-width="1.8"/>
+  <rect x="330" y="28" width="1140" height="82" rx="18" fill="#020202" stroke="#334155" stroke-width="1.2"/>
   <text x="900" y="64" text-anchor="middle" class="title">Fraud Decision Tree MLOps Architecture</text>
   <text x="900" y="91" text-anchor="middle" class="subtitle">Linux-first • uv • scikit-learn • MLflow • FastAPI • MongoDB • Docker • CI/CD</text>
 
   <!-- Lanes -->
-  <rect x="55" y="150" width="370" height="840" rx="18" fill="#061826" stroke="#0284c7" stroke-width="2"/>
+  <rect x="55" y="150" width="370" height="840" rx="18" fill="#020617" stroke="#164e63" stroke-width="1.4"/>
   <text x="240" y="184" text-anchor="middle" class="lane-title">DEVELOPMENT &amp; VERSIONING LAYER</text>
 
-  <rect x="475" y="150" width="520" height="840" rx="18" fill="#061a10" stroke="#16a34a" stroke-width="2"/>
+  <rect x="475" y="150" width="520" height="840" rx="18" fill="#02140a" stroke="#166534" stroke-width="1.4"/>
   <text x="735" y="184" text-anchor="middle" class="lane-title">MACHINE LEARNING LIFECYCLE LAYER</text>
 
-  <rect x="1045" y="150" width="350" height="840" rx="18" fill="#1c1005" stroke="#f97316" stroke-width="2"/>
+  <rect x="1045" y="150" width="350" height="840" rx="18" fill="#160b03" stroke="#9a3412" stroke-width="1.4"/>
   <text x="1220" y="184" text-anchor="middle" class="lane-title">SERVING &amp; APPLICATION LAYER</text>
 
-  <rect x="1445" y="150" width="300" height="840" rx="18" fill="#16081f" stroke="#9333ea" stroke-width="2"/>
+  <rect x="1445" y="150" width="300" height="840" rx="18" fill="#12051a" stroke="#6b21a8" stroke-width="1.4"/>
   <text x="1595" y="184" text-anchor="middle" class="lane-title">TELEMETRY &amp; OBSERVABILITY LAYER</text>
 
   <!-- Development boxes -->
-  <g fill="#101820" stroke="#38bdf8" stroke-width="2">
+  <g fill="#050505" stroke="#38bdf8" stroke-width="1.45">
     <rect x="95" y="220" width="290" height="70" rx="12"/>
     <rect x="95" y="320" width="290" height="70" rx="12"/>
     <rect x="95" y="420" width="290" height="70" rx="12"/>
@@ -79,7 +80,7 @@
   <text x="240" y="770" text-anchor="middle" class="box-subtitle">CI • tests • model validation</text>
 
   <!-- ML boxes -->
-  <g fill="#101820" stroke="#22c55e" stroke-width="2">
+  <g fill="#050505" stroke="#22c55e" stroke-width="1.45">
     <rect x="540" y="220" width="390" height="70" rx="12"/>
     <rect x="540" y="320" width="390" height="70" rx="12"/>
     <rect x="540" y="420" width="390" height="70" rx="12"/>
@@ -115,7 +116,7 @@
   <text x="840" y="892" text-anchor="middle" class="box-subtitle">joblib • metadata</text>
 
   <!-- Serving boxes -->
-  <g fill="#101820" stroke="#fb923c" stroke-width="2">
+  <g fill="#050505" stroke="#fb923c" stroke-width="1.45">
     <rect x="1090" y="235" width="260" height="72" rx="12"/>
     <rect x="1090" y="355" width="260" height="72" rx="12"/>
     <rect x="1090" y="475" width="260" height="72" rx="12"/>
@@ -143,13 +144,13 @@
   <text x="1220" y="901" text-anchor="middle" class="box-subtitle">containerized service</text>
 
   <!-- Telemetry boxes -->
-  <g fill="#101820" stroke="#c084fc" stroke-width="2">
+  <g fill="#050505" stroke="#c084fc" stroke-width="1.45">
     <rect x="1485" y="225" width="220" height="70" rx="12"/>
     <rect x="1485" y="335" width="220" height="70" rx="12"/>
     <rect x="1485" y="445" width="220" height="70" rx="12"/>
     <rect x="1485" y="555" width="220" height="70" rx="12"/>
-    <rect x="1485" y="685" width="220" height="70" rx="12" stroke-dasharray="7 5"/>
-    <rect x="1485" y="795" width="220" height="70" rx="12" stroke-dasharray="7 5"/>
+    <rect x="1485" y="685" width="220" height="70" rx="12" stroke-dasharray="7 5" opacity="0.78"/>
+    <rect x="1485" y="795" width="220" height="70" rx="12" stroke-dasharray="7 5" opacity="0.78"/>
   </g>
 
   <text x="1595" y="254" text-anchor="middle" class="box-title">MongoDB</text>
@@ -171,7 +172,7 @@
   <text x="1595" y="846" text-anchor="middle" class="box-subtitle">planned Slack / PagerDuty</text>
 
   <!-- Arrows -->
-  <g stroke-width="2.4" fill="none">
+  <g stroke-width="1.75" fill="none">
     <line x1="240" y1="290" x2="240" y2="320" stroke="#38bdf8" marker-end="url(#arrow-blue)"/>
     <line x1="240" y1="390" x2="240" y2="420" stroke="#38bdf8" marker-end="url(#arrow-blue)"/>
     <line x1="240" y1="490" x2="240" y2="520" stroke="#38bdf8" marker-end="url(#arrow-blue)"/>
@@ -192,20 +193,20 @@
     <line x1="1220" y1="667" x2="1220" y2="715" stroke="#fb923c" marker-end="url(#arrow-orange)"/>
     <line x1="1220" y1="787" x2="1220" y2="850" stroke="#fb923c" marker-end="url(#arrow-orange)"/>
 
-    <line x1="1595" y1="295" x2="1595" y2="335" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
-    <line x1="1595" y1="405" x2="1595" y2="445" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
-    <line x1="1595" y1="515" x2="1595" y2="555" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
-    <line x1="1595" y1="625" x2="1595" y2="685" stroke="#c084fc" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
-    <line x1="1595" y1="755" x2="1595" y2="795" stroke="#c084fc" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+    <line x1="1595" y1="295" x2="1595" y2="335" stroke="#c084fc" opacity="0.72" marker-end="url(#arrow-purple)"/>
+    <line x1="1595" y1="405" x2="1595" y2="445" stroke="#c084fc" opacity="0.72" marker-end="url(#arrow-purple)"/>
+    <line x1="1595" y1="515" x2="1595" y2="555" stroke="#c084fc" opacity="0.72" marker-end="url(#arrow-purple)"/>
+    <line x1="1595" y1="625" x2="1595" y2="685" stroke="#c084fc" stroke-dasharray="8 6" opacity="0.50" marker-end="url(#arrow-purple)"/>
+    <line x1="1595" y1="755" x2="1595" y2="795" stroke="#c084fc" stroke-dasharray="8 6" opacity="0.50" marker-end="url(#arrow-purple)"/>
 
-    <line x1="930" y1="877" x2="1090" y2="630" stroke="#fb923c" stroke-dasharray="8 6" marker-end="url(#arrow-orange)"/>
-    <line x1="1350" y1="750" x2="1485" y2="260" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
-    <line x1="930" y1="877" x2="1485" y2="480" stroke="#c084fc" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
-    <line x1="385" y1="755" x2="540" y2="755" stroke="#38bdf8" stroke-dasharray="8 6" marker-end="url(#arrow-blue)"/>
+    <line x1="930" y1="877" x2="1090" y2="630" stroke="#fb923c" stroke-dasharray="8 6" opacity="0.55" marker-end="url(#arrow-orange)"/>
+    <line x1="1350" y1="750" x2="1485" y2="260" stroke="#c084fc" opacity="0.72" marker-end="url(#arrow-purple)"/>
+    <line x1="930" y1="877" x2="1485" y2="480" stroke="#c084fc" stroke-dasharray="8 6" opacity="0.50" marker-end="url(#arrow-purple)"/>
+    <line x1="385" y1="755" x2="540" y2="755" stroke="#38bdf8" stroke-dasharray="8 6" opacity="0.55" marker-end="url(#arrow-blue)"/>
   </g>
 
   <!-- Legend -->
-  <rect x="540" y="1030" width="720" height="48" rx="16" fill="#0b1120" stroke="#334155"/>
+  <rect x="540" y="1030" width="720" height="48" rx="16" fill="#020202" stroke="#1f2937"/>
   <text x="575" y="1060" class="legend">Solid lines = implemented flow</text>
   <text x="790" y="1060" class="legend">Dashed lines = planned or future integration</text>
   <text x="1125" y="1060" class="legend">Architecture = project map + MLOps roadmap</text>
