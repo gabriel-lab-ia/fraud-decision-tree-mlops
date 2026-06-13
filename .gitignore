@@ -1,0 +1,41 @@
+
+# MLflow database backend and artifacts
+mlflow.db
+mlflow.db-shm
+mlflow.db-wal
+mlartifacts/
+
+# Generated datasets
+data/sample/*.csv
+data/processed/*.csv
+data/interim/*.csv
+
+# Generated model artifacts
+artifacts/models/*.joblib
+artifacts/models/*.pkl
+artifacts/encoders/*.joblib
+artifacts/schemas/*.json
+
+# Generated reports
+reports/metrics.json
+
+# MLflow local backend and artifacts
+mlflow.db
+mlflow.db-shm
+mlflow.db-wal
+mlruns/
+mlartifacts/
+
+# Local environment
+.venv/
+.env
+
+# Python build metadata
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Python bytecode
+__pycache__/
+*.py[cod]

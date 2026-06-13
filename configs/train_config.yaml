@@ -1,0 +1,29 @@
+project:
+  name: fraud-decision-tree-mlops
+  version: 0.1.0
+
+data:
+  sample_path: data/sample/synthetic_fraud.csv
+  processed_path: data/processed/fraud_processed.csv
+  target_column: is_fraud
+  n_samples: 5000
+  test_size: 0.2
+  random_state: 42
+
+model:
+  name: decision_tree_fraud_detector
+  type: DecisionTreeClassifier
+  max_depth: 6
+  min_samples_split: 10
+  min_samples_leaf: 5
+  class_weight: balanced
+  random_state: 42
+
+mlflow:
+  tracking_uri: sqlite:///mlflow.db
+  artifact_location: ./mlartifacts
+  experiment_name: fraud_decision_tree_experiment
+
+artifacts:
+  model_path: artifacts/models/decision_tree_model.joblib
+  metrics_path: reports/metrics.json
