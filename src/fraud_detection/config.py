@@ -1,3 +1,4 @@
+from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -14,7 +15,7 @@ class Settings(BaseSettings):
     mongo_database: str = "fraud_detection"
     mongo_collection: str = "prediction_events"
 
-    mlflow_tracking_uri: str = "./mlruns"
+    mlflow_tracking_uri: str = "sqlite:///mlflow.db"
     mlflow_experiment_name: str = "fraud_decision_tree_experiment"
 
     model_path: str = "artifacts/models/decision_tree_model.joblib"
@@ -26,6 +27,7 @@ class Settings(BaseSettings):
     }
 
 
+@lru_cache
 def get_settings() -> Settings:
     return Settings()
 

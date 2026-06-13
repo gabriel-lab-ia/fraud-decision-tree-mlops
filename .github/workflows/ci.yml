@@ -1,0 +1,15 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+          enable-cache: true
+      - run: uv sync --frozen --extra dev
+      - run: uv run ruff check src tests
+      - run: uv run black --check src tests
+      - run: uv run pytest

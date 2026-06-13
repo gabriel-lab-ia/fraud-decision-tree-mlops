@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      MODEL_PATH: /app/artifacts/models/decision_tree_model.joblib
+      MONGO_URI: mongodb://mongodb:27017
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+    depends_on:
+      mongodb:
+        condition: service_healthy
+  mongodb:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  mlflow:
+    build: .
+    command: ["uv", "run", "mlflow", "ui", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "sqlite:////app/mlflow.db", "--default-artifact-root", "/app/mlartifacts"]
+    ports: ["5000:5000"]
+    volumes:
+      - ./:/app
+volumes:
+  mongo-data:
