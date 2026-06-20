@@ -10,6 +10,7 @@ nav:
   - Releases:
       - v0.3.0: releases/v0.3.0.md
   - Architecture: architecture.md
+  - Diagrams: diagrams/README.md
   - Data Architecture: data_architecture.md
   - ML Lifecycle: ml_lifecycle.md
   - Model Governance: model_governance.md

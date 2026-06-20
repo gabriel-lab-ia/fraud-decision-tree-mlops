@@ -9,8 +9,10 @@ mlartifacts/
 data/sample/*.csv
 data/processed/*.csv
 data/interim/*.csv
+data/raw/*.csv
 
 # Generated model artifacts
+artifacts/models/*
 artifacts/models/*.joblib
 artifacts/models/*.pkl
 artifacts/models/*.manifest.json
@@ -21,7 +23,11 @@ artifacts/schemas/*.json
 reports/metrics.json
 reports/*.json
 reports/*.csv
+reports/*.html
 reports/*.png
+reports/*.svg
+reports/*.joblib
+reports/*.pkl
 reports/*.md
 
 # MLflow local backend and artifacts
@@ -36,6 +42,10 @@ mlartifacts/
 .env
 site/
 .coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Python build metadata
 *.egg-info/
