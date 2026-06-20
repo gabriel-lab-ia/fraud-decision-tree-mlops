@@ -1,6 +1,6 @@
 project:
   name: fraud-decision-tree-mlops
-  version: 0.2.0
+  version: 0.3.0
 
 data:
   sample_path: data/sample/synthetic_fraud.csv
@@ -8,7 +8,9 @@ data:
   target_column: is_fraud
   n_samples: 5000
   test_size: 0.2
+  validation_size: 0.2
   random_state: 42
+  minimum_class_count: 20
 
 model:
   name: decision_tree_fraud_detector
@@ -18,6 +20,24 @@ model:
   min_samples_leaf: 5
   class_weight: balanced
   random_state: 42
+  threshold_strategy: max_f1
+  fixed_threshold: 0.5
+  false_positive_cost: 1.0
+  false_negative_cost: 5.0
+  calibration_method: sigmoid
+
+training:
+  profile: ci
+  enable_hyperparameter_search: false
+  bootstrap_iterations: 25
+
+validation_gates:
+  minimum_recall: 0.50
+  minimum_f1: 0.35
+  minimum_roc_auc: 0.60
+  minimum_pr_auc: 0.25
+  maximum_false_negative_rate: 0.50
+  maximum_brier_score: 0.30
 
 mlflow:
   tracking_uri: sqlite:///mlflow.db
@@ -26,4 +46,8 @@ mlflow:
 
 artifacts:
   model_path: artifacts/models/decision_tree_model.joblib
+  manifest_path: artifacts/models/decision_tree_model.manifest.json
   metrics_path: reports/metrics.json
+  evaluation_summary_path: reports/evaluation_summary.md
+  data_quality_report_path: reports/data_quality_report.json
+  reference_profile_path: reports/reference_profile.json

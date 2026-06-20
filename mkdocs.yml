@@ -1,0 +1,28 @@
+site_name: Fraud Decision Tree MLOps
+site_description: Production-oriented fraud decision tree baseline with MLOps controls.
+repo_url: https://github.com/gabriel-lab-ia/fraud-decision-tree-mlops
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Data Architecture: data_architecture.md
+  - ML Lifecycle: ml_lifecycle.md
+  - Model Governance: model_governance.md
+  - Model Card: model_card.md
+  - Responsible AI: responsible_ai.md
+  - Data Sheet: data_sheet.md
+  - API Contract: api_contract.md
+  - Telemetry: telemetry.md
+  - Monitoring: monitoring.md
+  - Drift Detection: drift_detection.md
+  - Security: security.md
+  - Threat Model: threat_model.md
+  - Deployment: deployment.md
+  - Runbook: runbook.md
+  - Incident Response: incident_response.md
+  - Demo Workflow: demo_workflow.md
+  - Explainability: model_explainability.md
+  - Limitations: limitations.md

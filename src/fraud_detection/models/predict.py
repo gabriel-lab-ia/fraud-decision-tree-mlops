@@ -1,28 +1,16 @@
 from pathlib import Path
 
-import joblib
 import pandas as pd
 
 from fraud_detection.features.feature_engineering import add_engineered_features
+from fraud_detection.models.artifact import load_artifact_with_validation
 
 
-def load_model_artifact(model_path: str | Path) -> dict:
-    model_path = Path(model_path)
-
-    if not model_path.exists():
-        raise FileNotFoundError(
-            f"Model artifact not found at {model_path}. Run training first."
-        )
-
-    artifact = joblib.load(model_path)
-
-    required_keys = {"model", "feature_columns", "model_name", "model_version"}
-    missing_keys = required_keys - set(artifact.keys())
-
-    if missing_keys:
-        raise ValueError(f"Invalid model artifact. Missing keys: {missing_keys}")
-
-    return artifact
+def load_model_artifact(
+    model_path: str | Path,
+    manifest_path: str | Path | None = None,
+) -> dict:
+    return load_artifact_with_validation(model_path, manifest_path)
 
 
 def predict_transaction(artifact: dict, features: dict) -> dict:
@@ -41,13 +29,16 @@ def predict_transaction(artifact: dict, features: dict) -> dict:
 
     data = data[feature_columns]
 
-    prediction = int(model.predict(data)[0])
     probability = float(model.predict_proba(data)[0][1])
+    threshold = float(artifact.get("decision_threshold", 0.5))
+    prediction = int(probability >= threshold)
 
     return {
         "prediction": prediction,
         "label": "fraud" if prediction == 1 else "legitimate",
         "risk_score": probability,
+        "decision_threshold": threshold,
         "model_name": artifact["model_name"],
         "model_version": artifact["model_version"],
+        "artifact_schema_version": artifact.get("artifact_schema_version"),
     }

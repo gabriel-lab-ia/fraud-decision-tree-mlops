@@ -1,7 +1,11 @@
 import pytest
 from pydantic import ValidationError
 
-from fraud_detection.api.schemas import PredictionResponse, TransactionRequest
+from fraud_detection.api.schemas import (
+    BatchPredictionRequest,
+    PredictionResponse,
+    TransactionRequest,
+)
 
 
 def test_transaction_request_rejects_invalid_risk_score():
@@ -23,7 +27,13 @@ def test_prediction_response_contract():
         prediction=1,
         label="fraud",
         risk_score=0.8,
+        decision_threshold=0.4,
         model_name="tree",
         model_version="0.1.0",
     )
     assert response.model_dump()["telemetry_event_id"] is None
+
+
+def test_batch_request_rejects_empty_transactions():
+    with pytest.raises(ValidationError):
+        BatchPredictionRequest(transactions=[])

@@ -13,11 +13,16 @@ data/interim/*.csv
 # Generated model artifacts
 artifacts/models/*.joblib
 artifacts/models/*.pkl
+artifacts/models/*.manifest.json
 artifacts/encoders/*.joblib
 artifacts/schemas/*.json
 
 # Generated reports
 reports/metrics.json
+reports/*.json
+reports/*.csv
+reports/*.png
+reports/*.md
 
 # MLflow local backend and artifacts
 mlflow.db
@@ -29,6 +34,8 @@ mlartifacts/
 # Local environment
 .venv/
 .env
+site/
+.coverage
 
 # Python build metadata
 *.egg-info/

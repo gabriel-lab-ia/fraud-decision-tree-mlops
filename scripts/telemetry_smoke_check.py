@@ -3,12 +3,19 @@ import os
 import sys
 from typing import Any
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
 from urllib.request import urlopen
 
 
 def check_recent_telemetry(base_url: str) -> tuple[bool, list[dict[str, Any]]]:
     try:
-        with urlopen(f"{base_url.rstrip('/')}/telemetry/recent", timeout=5) as response:
+        parsed = urlparse(base_url)
+        if parsed.scheme not in {"http", "https"}:
+            raise ValueError("Only HTTP(S) API URLs are supported.")
+        with urlopen(
+            f"{base_url.rstrip('/')}/v1/telemetry/recent",
+            timeout=5,
+        ) as response:  # nosec B310
             payload = json.load(response)
     except HTTPError as exc:
         if exc.code == 503:

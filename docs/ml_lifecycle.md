@@ -5,11 +5,15 @@
    invalid ranges.
 3. Validation checks required columns, missing values, and binary labels.
 4. Shared feature engineering creates fraud-oriented signals.
-5. The pipeline persists model-ready data and performs a stratified train/test split.
-6. A class-balanced Decision Tree is trained and evaluated.
-7. Parameters, metrics, and the sklearn model are logged to SQLite-backed MLflow.
-8. A joblib serving artifact and metrics JSON are generated locally.
-9. Validation gates recall, F1, and ROC-AUC before promotion.
+5. The pipeline persists model-ready data and performs stratified train,
+   validation, and test splits.
+6. A class-balanced Decision Tree is trained, optionally calibrated, and evaluated.
+7. The validation split selects a decision threshold.
+8. Parameters, metrics, baselines, tags, and the sklearn model are logged to MLflow.
+9. A joblib serving artifact, SHA-256 manifest, metrics JSON, data-quality report,
+   reference profile, and evaluation summary are generated locally.
+10. Validation gates recall, F1, ROC-AUC, PR-AUC, false-negative rate, calibration,
+    and dummy-baseline lift before promotion.
 
 GitHub Actions runs quality checks on every change and a model-validation workflow
 when training-related files change.

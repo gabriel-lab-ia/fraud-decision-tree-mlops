@@ -54,7 +54,7 @@ def test_prediction_response_validation_catches_missing_fields():
     with pytest.raises(ValueError, match="missing fields"):
         validate_prediction_response({"transaction_id": "txn"})
 
-    valid = {field: None for field in REQUIRED_RESPONSE_FIELDS}
+    valid = dict.fromkeys(REQUIRED_RESPONSE_FIELDS)
     valid.update({"prediction": 0, "risk_score": 0.2})
     validate_prediction_response(valid)
 

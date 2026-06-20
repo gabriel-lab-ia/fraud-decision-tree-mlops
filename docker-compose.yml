@@ -3,13 +3,27 @@ services:
     build: .
     ports: ["8000:8000"]
     environment:
+      APP_ENV: development
+      ENABLE_API_KEY_AUTH: "false"
       MODEL_PATH: /app/artifacts/models/decision_tree_model.joblib
+      MODEL_MANIFEST_PATH: /app/artifacts/models/decision_tree_model.manifest.json
       MONGO_URI: mongodb://mongodb:27017
     volumes:
       - ./artifacts:/app/artifacts:ro
     depends_on:
       mongodb:
         condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=3)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
   mongodb:
     image: mongo:7
     ports: ["27017:27017"]
@@ -22,7 +36,19 @@ services:
       retries: 10
   mlflow:
     build: .
-    command: ["uv", "run", "mlflow", "ui", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "sqlite:////app/mlflow.db", "--default-artifact-root", "/app/mlartifacts"]
+    command:
+      [
+        "mlflow",
+        "ui",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5000",
+        "--backend-store-uri",
+        "sqlite:////app/mlflow.db",
+        "--default-artifact-root",
+        "/app/mlartifacts",
+      ]
     ports: ["5000:5000"]
     volumes:
       - ./:/app
