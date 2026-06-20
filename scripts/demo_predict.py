@@ -1,8 +1,9 @@
 import json
 import os
 import sys
-from typing import Any
+from typing import Any, cast
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 REQUIRED_RESPONSE_FIELDS = {
@@ -10,6 +11,7 @@ REQUIRED_RESPONSE_FIELDS = {
     "prediction",
     "label",
     "risk_score",
+    "decision_threshold",
     "model_name",
     "model_version",
     "telemetry_event_id",
@@ -59,14 +61,18 @@ def validate_prediction_response(payload: dict[str, Any]) -> None:
 
 
 def post_prediction(base_url: str, transaction: dict[str, Any]) -> dict[str, Any]:
+    parsed = urlparse(base_url)
+    if parsed.scheme not in {"http", "https"}:
+        raise ValueError("Only HTTP(S) API URLs are supported.")
     request = Request(
         f"{base_url.rstrip('/')}/predict",
         data=json.dumps(transaction).encode(),
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urlopen(request, timeout=5) as response:
+    with urlopen(request, timeout=5) as response:  # nosec B310
         payload = json.load(response)
+    payload = cast(dict[str, Any], payload)
     validate_prediction_response(payload)
     return payload
 
@@ -85,7 +91,10 @@ def format_results(results: list[dict[str, Any]]) -> str:
 def main() -> int:
     base_url = os.getenv("API_BASE_URL", "http://localhost:8000")
     try:
-        results = [post_prediction(base_url, item) for item in demo_transactions()]
+        results = [
+            post_prediction(f"{base_url.rstrip('/')}/v1", item)
+            for item in demo_transactions()
+        ]
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError) as exc:
         print(f"Inference demo failed: {exc}", file=sys.stderr)
         return 1

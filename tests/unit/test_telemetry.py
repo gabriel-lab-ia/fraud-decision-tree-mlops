@@ -20,8 +20,10 @@ def test_build_prediction_event_contains_monitoring_fields():
             "model_name": "tree",
             "model_version": "0.1.0",
         },
+        request_id="req-1",
     )
     assert event["transaction_id"] == "txn_1"
+    assert event["request_id"] == "req-1"
     assert event["request_features"]["transaction_amount"] == 100.0
     assert event["timestamp"].tzinfo is not None
 

@@ -43,10 +43,16 @@ async def make_artifact():
         data[MODEL_FEATURE_COLUMNS], data["is_fraud"]
     )
     return {
+        "artifact_schema_version": "fraud-model-artifact-v1",
         "model": model,
         "feature_columns": MODEL_FEATURE_COLUMNS,
         "model_name": "decision_tree_fraud_detector",
         "model_version": "0.1.0",
+        "decision_threshold": 0.5,
+        "metadata": {
+            "model_name": "decision_tree_fraud_detector",
+            "model_version": "0.1.0",
+        },
     }
 
 
@@ -92,7 +98,7 @@ async def test_ready(client):
 @pytest.mark.anyio
 async def test_predict_succeeds_when_telemetry_is_offline(client):
     response = await client.post(
-        "/predict",
+        "/v1/predict",
         json={
             "transaction_id": "txn_001",
             "transaction_amount": 750.0,
@@ -106,9 +112,42 @@ async def test_predict_succeeds_when_telemetry_is_offline(client):
     assert response.status_code == 200
     assert response.json()["transaction_id"] == "txn_001"
     assert response.json()["telemetry_event_id"] is None
+    assert "x-request-id" in response.headers
+
+
+@pytest.mark.anyio
+async def test_batch_predict_and_metrics(client):
+    response = await client.post(
+        "/v1/predict/batch",
+        json={
+            "transactions": [
+                {
+                    "transaction_id": "txn_001",
+                    "transaction_amount": 750.0,
+                    "transaction_hour": 2,
+                    "customer_age_days": 14,
+                    "num_previous_transactions": 1,
+                    "merchant_risk_score": 0.82,
+                    "device_risk_score": 0.74,
+                }
+            ]
+        },
+    )
+    assert response.status_code == 200
+    assert len(response.json()["predictions"]) == 1
+    metrics = await client.get("/metrics")
+    assert metrics.status_code == 200
+    assert "fraud_api_info" in metrics.text
+
+
+@pytest.mark.anyio
+async def test_version_endpoint(client):
+    response = await client.get("/version")
+    assert response.status_code == 200
+    assert response.json()["application"] == "fraud-decision-tree-mlops"
 
 
 @pytest.mark.anyio
 async def test_recent_telemetry_returns_503_when_store_is_offline(client):
-    response = await client.get("/telemetry/recent")
+    response = await client.get("/v1/telemetry/recent")
     assert response.status_code == 503

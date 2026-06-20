@@ -25,10 +25,12 @@ def test_predict_transaction_returns_expected_payload():
     model.fit(training_data[MODEL_FEATURE_COLUMNS], training_data["is_fraud"])
 
     artifact = {
+        "artifact_schema_version": "fraud-model-artifact-v1",
         "model": model,
         "feature_columns": MODEL_FEATURE_COLUMNS,
         "model_name": "decision_tree_fraud_detector",
         "model_version": "0.1.0",
+        "decision_threshold": 0.5,
     }
 
     features = {
@@ -45,5 +47,6 @@ def test_predict_transaction_returns_expected_payload():
     assert "prediction" in result
     assert "label" in result
     assert "risk_score" in result
+    assert "decision_threshold" in result
     assert result["model_name"] == "decision_tree_fraud_detector"
     assert result["model_version"] == "0.1.0"

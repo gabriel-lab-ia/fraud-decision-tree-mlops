@@ -1,5 +1,16 @@
 name: CI
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -10,6 +21,8 @@ jobs:
           python-version: "3.11"
           enable-cache: true
       - run: uv sync --frozen --extra dev
-      - run: uv run ruff check src tests scripts/demo_predict.py scripts/telemetry_smoke_check.py scripts/run_monitoring_summary.py scripts/export_model_explainability.py
-      - run: uv run black --check src tests scripts/demo_predict.py scripts/telemetry_smoke_check.py scripts/run_monitoring_summary.py scripts/export_model_explainability.py
-      - run: uv run pytest
+      - run: make lint
+      - run: make typecheck
+      - run: make security
+      - run: make test
+      - run: make docs

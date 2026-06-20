@@ -7,7 +7,8 @@ from fraud_detection.telemetry.nosql_client import MongoTelemetryClient
 
 @lru_cache
 def _get_model_artifact() -> dict:
-    return load_model_artifact(get_settings().model_path)
+    settings = get_settings()
+    return load_model_artifact(settings.model_path, settings.model_manifest_path)
 
 
 @lru_cache

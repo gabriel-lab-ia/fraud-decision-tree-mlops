@@ -8,12 +8,15 @@ and MLOps workflow demonstration. It is not approved for autonomous financial ac
 ## Inputs And Output
 
 The model uses amount, hour, customer age, transaction history, merchant/device risk,
-and five engineered features. It outputs a binary label and class probability.
+and five engineered features. It outputs a binary label, class probability, and the
+decision threshold used for classification.
 
 ## Evaluation
 
-Training records accuracy, precision, recall, F1, and ROC-AUC on a stratified holdout.
-Promotion floors are recall 0.50, F1 0.35, and ROC-AUC 0.60.
+Training records accuracy, balanced accuracy, precision, recall, specificity, F1,
+F-beta, ROC-AUC, PR-AUC, MCC, false-positive rate, false-negative rate, Brier score,
+log loss, confusion matrix, and baseline metrics. Promotion floors are configured in
+`configs/train_config.yaml`.
 
 ## Risks
 

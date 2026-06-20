@@ -41,4 +41,9 @@ def test_training_writes_model_metrics_and_mlflow_run(tmp_path):
 
     assert Path(config["artifacts"]["model_path"]).exists()
     assert Path(config["artifacts"]["metrics_path"]).exists()
-    assert set(metrics) == {"accuracy", "precision", "recall", "f1_score", "roc_auc"}
+    assert Path(tmp_path / "model.manifest.json").exists()
+    assert Path(tmp_path / "data_quality_report.json").exists()
+    assert {"accuracy", "precision", "recall", "f1_score", "roc_auc"} <= set(metrics)
+    assert "pr_auc" in metrics
+    assert "brier_score" in metrics
+    assert "threshold" in metrics

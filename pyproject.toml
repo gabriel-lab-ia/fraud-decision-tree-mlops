@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fraud-decision-tree-mlops"
-version = "0.2.0"
+version = "0.3.0"
 description = "Decision Tree fraud detection system with MLflow tracking, MongoDB telemetry, FastAPI inference, CI/CD, and continuous ML lifecycle."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -39,7 +39,8 @@ dev = [
     "mypy>=1.10.0",
     "ipykernel>=6.29.0",
     "mkdocs>=1.6.0",
-    "mkdocs-material>=9.5.0"
+    "mkdocs-material>=9.5.0",
+    "bandit[toml]>=1.7.9"
 ]
 
 [tool.setuptools.packages.find]
@@ -49,13 +50,20 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src", "."]
 addopts = "-ra --strict-markers"
+markers = [
+    "unit: unit tests",
+    "integration: integration tests",
+    "contract: API and artifact contract tests",
+    "e2e: end-to-end smoke tests",
+]
 
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+extend-exclude = ["scripts/docs/*.py"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP"]
+select = ["E", "F", "I", "B", "UP", "C4", "SIM", "RUF"]
 ignore = []
 
 [tool.black]
@@ -66,3 +74,8 @@ target-version = ["py311"]
 python_version = "3.11"
 ignore_missing_imports = true
 strict = false
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_return_any = true
+no_implicit_optional = true
+strict_equality = true
