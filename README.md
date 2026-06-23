@@ -1,9 +1,5 @@
 # Fraud Decision Tree MLOps
-
-<p align="center">
-  <img src="docs/diagrams/fraud-mlops-big-tech-architecture.svg" alt="Fraud Decision Tree MLOps Architecture" width="100%">
-</p>
-
+   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="52" alt="Linux" />
 Production-oriented fraud detection baseline for MLOps practice and portfolio use.
 The project separates data access, cleaning, contract validation, feature
 engineering, model training, model governance, FastAPI serving, MongoDB telemetry,
