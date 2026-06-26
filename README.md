@@ -1,8 +1,31 @@
 # Fraud Decision Tree MLOps
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" height="52" alt="Git" />
+
+<img src="https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black"/>
+
+<img src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/MLflow-0194E2?logo=mlflow&logoColor=white"/>
+
+
+
+
+
+<img src="https://img.shields.io/badge/License-MIT-green"/>
+
+</p>
+<p align="center">
+ <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="52" alt="Python" />
   &nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="52" alt="Python" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" height="52" alt="Git" />
   &nbsp;&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="52" alt="Linux" />
   &nbsp;&nbsp;
